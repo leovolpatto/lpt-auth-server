@@ -1,30 +1,28 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Eloquent as Model;
 
-final class Device extends Model implements \App\Models\IDevice{
+final class Device extends Model implements \App\Models\DataContract\IDevice{
     
     protected $table = 'devices';
     protected $hidden = ['id'];
     
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
         'name' => 'string',
         'mac_address' => 'string',
         'device_id' => 'string'
     ];
     
     protected $fillable = [
-        'code',
         'name',
         'mac_address',
         'device_id'
     ];
     
-    public function asIDevice(): \App\Models\IDevice {
+    public function asIDevice(): \App\Models\DataContract\IDevice {
         return $this;
     }
 

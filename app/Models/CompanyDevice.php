@@ -1,10 +1,10 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Eloquent as Model;
 
-final class CompanyDevice extends Model implements \App\Models\ICompanyDevice {
+final class CompanyDevice extends Model implements \App\Models\DataContract\ICompanyDevice {
     
     protected $table = 'company_devices';
     protected $hidden = ['id'];
@@ -14,7 +14,6 @@ final class CompanyDevice extends Model implements \App\Models\ICompanyDevice {
         'device_id' => 'integer',
         'name' => 'string',
         'base_topic' => 'string',
-        'is_registered' => 'boolean',
         'is_enabled' => 'boolean'
     ];
     
@@ -23,11 +22,10 @@ final class CompanyDevice extends Model implements \App\Models\ICompanyDevice {
         'device_id',
         'name',
         'base_topic',
-        'is_registered',
         'is_enabled'
     ];
     
-    public function asICompanyDevice(): \App\Models\ICompanyDevice {
+    public function asICompanyDevice(): \App\Models\DataContract\ICompanyDevice {
         return $this;
     }
 
@@ -52,11 +50,7 @@ final class CompanyDevice extends Model implements \App\Models\ICompanyDevice {
     }
 
     public function getIsEnabled(): bool {
-        return $this['id_enabled'];
-    }
-
-    public function getIsRegistered(): bool {
-        return $this['is_registered'];
+        return $this['is_enabled'];
     }
 
     public function getName(): string {
@@ -81,10 +75,6 @@ final class CompanyDevice extends Model implements \App\Models\ICompanyDevice {
 
     public function setIsEnabled(bool $enabled) {
         $this['is_enabled'] = $enabled;
-    }
-
-    public function setIsRegistered(bool $reg) {
-        $this['is_registered'] = $reg;
     }
 
     public function setName(string $name) {

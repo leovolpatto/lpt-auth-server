@@ -2,4 +2,4 @@
 
 use Illuminate\Http\Request;
 
-Route::get('v1/device-login', 'Api\DeviceLoginController@loginDevice');
+Route::post('v1/devices/login', 'Api\DeviceLoginController@loginDevice');

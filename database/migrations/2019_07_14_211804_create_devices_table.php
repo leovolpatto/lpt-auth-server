@@ -11,14 +11,15 @@ class CreateDevicesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
+            $table->timestamps();
         });
         
         Schema::create('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
-            $table->unique('code', 10); //AuthServer generated code
-            $table->unique('mac_address');
-            $table->unique('device_id'); //ESP.getID()
+            $table->string('mac_address')->unique();
+            $table->string('device_id')->unique(); //ESP.getID()
+            $table->timestamps();
         });
         
         Schema::create('company_devices', function (Blueprint $table) {
@@ -27,8 +28,8 @@ class CreateDevicesTable extends Migration
             $table->integer('device_id');
             $table->string('name', 100);
             $table->string('base_topic', 100);
-            $table->boolean('is_registered')->default(false);
             $table->boolean('is_enabled')->default(false);
+            $table->timestamps();
         });
                 
         Schema::create('device_login_attempt', function (Blueprint $table) {
@@ -38,6 +39,7 @@ class CreateDevicesTable extends Migration
             $table->string('last_error');
             $table->dateTime('last_login');
             $table->string('last_ip');
+            $table->timestamps();
         });
     }
  

@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Response;
 use Illuminate\Http\JsonResponse;
+use App\Helpers\NamingCaseHelper;
 
 class ApiResponse{
     
     protected $statusCode;
     public $data;
-    protected $message;
+    public $message;
     public $success;
     
     public function asJsonResponse() : JsonResponse{        
@@ -19,7 +20,8 @@ class ApiResponse{
     
     public static function createSuccessResponse(int $statusCode, $data, string $msg = "") : ApiResponse{
         $r = new ApiResponse();
-        $r->data = $data;
+        $helper = new NamingCaseHelper($data);
+        $r->data = $helper->toCamelCasedArray();
         $r->message = $msg;
         $r->success = true;
         $r->statusCode = $statusCode;
@@ -28,7 +30,8 @@ class ApiResponse{
     
     public static function createErrorResponse(int $errorStatusCode, $data, string $msg = "") : ApiResponse{
         $r = new ApiResponse();
-        $r->data = $data;
+        $helper = new NamingCaseHelper($data);
+        $r->data = $helper->toCamelCasedArray();
         $r->message = $msg;
         $r->success = false;
         $r->statusCode = $errorStatusCode;

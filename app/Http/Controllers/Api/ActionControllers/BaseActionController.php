@@ -33,6 +33,23 @@ abstract class BaseActionController implements IApiResponsable {
     protected abstract function setSubject();
 
     protected abstract function validateRequest() : bool;
+    
+    /**
+     * @param array $requireds
+     * @return bool
+     * @throws InvalidArgumentException
+     */
+    protected function validateInputRequiredFields(array $requireds) : bool {        
+        $i = $this->request->input();
+        
+        foreach ($requireds as $field){
+            if(!array_key_exists($field, $i)){
+                throw new \InvalidArgumentException("Field '{$field}' is missing");
+            }
+        }
+        
+        return true;
+    }
 
     public function execute(): \Symfony\Component\HttpFoundation\Response {
         try {
@@ -42,6 +59,8 @@ abstract class BaseActionController implements IApiResponsable {
             $this->response = $this->makeResponse();            
         } catch (ModelNotFoundException $notFound) {
             $this->response = ApiResponse::createErrorResponse(404, null, $notFound->getModel() . ' not found')->asJsonResponse();
+        } catch (\InvalidArgumentException $invalid) {
+            $this->response = ApiResponse::createErrorResponse(400, null, $invalid->getMessage())->asJsonResponse();
         } catch (\Exception $ex) {
             $this->response = ApiResponse::createErrorResponse(500, $this->subject, $ex->getMessage())->asJsonResponse();
         }

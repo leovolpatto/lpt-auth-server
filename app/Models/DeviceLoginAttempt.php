@@ -1,10 +1,10 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Eloquent as Model;
 
-final class DeviceLoginAttempt extends Model implements \App\Models\IDeviceLoginAttempt{
+final class DeviceLoginAttempt extends Model implements \App\Models\DataContract\IDeviceLoginAttempt{
     
     protected $table = 'device_login_attempt';
     protected $dates = ['last_login'];
@@ -27,7 +27,7 @@ final class DeviceLoginAttempt extends Model implements \App\Models\IDeviceLogin
         'last_ip'
     ];
     
-    public function asIDeviceLoginAttempt(): \App\Models\IDeviceLoginAttempt {
+    public function asIDeviceLoginAttempt(): \App\Models\DataContract\IDeviceLoginAttempt {
         return $this;
     }
 
@@ -72,7 +72,7 @@ final class DeviceLoginAttempt extends Model implements \App\Models\IDeviceLogin
     }
 
     public function setLastIp(string $ip) {
-        $this['last_ip'] = $id;
+        $this['last_ip'] = $ip;
     }
 
     public function setLastLogin(\DateTime $date) {

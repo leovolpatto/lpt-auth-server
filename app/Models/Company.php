@@ -1,10 +1,10 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Eloquent as Model;
 
-final class Company extends Model implements \App\Models\ICompany{
+final class Company extends Model implements \App\Models\DataContract\ICompany{
     
     protected $table = 'companies';
     protected $hidden = ['id'];
@@ -34,7 +34,7 @@ final class Company extends Model implements \App\Models\ICompany{
         $this['name'] = $name;
     }
 
-    public function asICompany(): \App\Models\ICompany {
+    public function asICompany(): \App\Models\DataContract\ICompany {
         return $this;
     }
 

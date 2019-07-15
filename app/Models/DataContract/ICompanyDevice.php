@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DataContract;
 
 interface ICompanyDevice {
     
@@ -18,9 +18,6 @@ interface ICompanyDevice {
     
     public function getBaseTopic() : string;
     public function setBaseTopic(string $topic);
-    
-    public function getIsRegistered() : bool;
-    public function setIsRegistered(bool $reg);
     
     public function getIsEnabled() : bool;
     public function setIsEnabled(bool $enabled);
