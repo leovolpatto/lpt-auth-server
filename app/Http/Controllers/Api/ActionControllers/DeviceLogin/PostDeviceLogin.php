@@ -7,8 +7,6 @@ use App\Models\CompanyDevice;
 use App\Http\Controllers\Api\ActionControllers\BaseActionController;
 
 final class PostDeviceLogin extends BaseActionController {
-
-    private $model;
     
     /**
      * @var CompanyDevice
